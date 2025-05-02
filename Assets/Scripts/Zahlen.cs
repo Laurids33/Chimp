@@ -14,7 +14,15 @@ public class Zahlen : MonoBehaviour
         if (geklickt == erwartet)
         {
             GetComponentInChildren<TextMeshProUGUI>().text = geklickt + "";
-            erwartet++;
+            if (erwartet == training.zahlMax)
+            {
+                erwartet = 0;
+                training.Vorwaerts();
+            }
+            else
+            {
+                erwartet++;
+            }
         }
         else
         {

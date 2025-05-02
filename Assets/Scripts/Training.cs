@@ -4,13 +4,15 @@ using TMPro;
 public class Training : MonoBehaviour
 {
     public GameObject[] Zahl = new GameObject[10];
-    int zahlMax;
+    public int zahlMax;
 
     public TextMeshProUGUI infoAnzeige;
 
     void Start()
     {
         zahlMax = 2;
+        for (int i = 0; i <= 9; i++)
+            Zahl[i].SetActive(false);
         ButtonsVerteilen();
     }
 
@@ -24,28 +26,38 @@ public class Training : MonoBehaviour
             do
             {
                 positionNeu = new Vector3(
-                UnityEngine.Random.Range(1, 15) * 50, 
-                UnityEngine.Random.Range(1, 8) * 50 - 10, 
-                0);
+                (Random.Range(1, 15) * 50 - 400) * 2,
+                (Random.Range(1, 8) * 50 - 10 - 200) * 2,
+                0) * 0.01f;
+            
                 positionDoppelt = false;
 
                 for (int k = 0; k < i; k++)
                 {
-                    if((Zahl[k].GetComponent<RectTransform>().position - positionNeu).magnitude < 25)
+                    if ((Zahl[k].GetComponent<RectTransform>().position - positionNeu).magnitude < 100 * 0.01f)
                     {
                         positionDoppelt = true;
                         break;
                     }
                 }
             }
-            while(positionDoppelt);
-
+            while (positionDoppelt);
             Zahl[i].GetComponent<RectTransform>().position = positionNeu;
         }
 
-        for (int i = zahlMax + 1; i <= 9; i++)
+        for (int i = 0; i <= 9; i++)
         {
-            Zahl[i].SetActive(false);
+            if (i <= zahlMax)
+            {
+                Zahl[i].SetActive(true);
+                Zahl[i].GetComponentInChildren<TextMeshProUGUI>().text = i + "";
+            }
+            else
+            {
+                Zahl[i].SetActive(false);
+            }
+                
+
         }
 
         Invoke(nameof(ZahlenLoeschen), zahlMax);
@@ -69,7 +81,7 @@ public class Training : MonoBehaviour
     public void Zurueck()
     {
         zahlMax--;
-        infoAnzeige.GetComponent<RectTransform>().transform.Translate(0,-500, 0);
+        infoAnzeige.GetComponent<RectTransform>().transform.Translate(0, -500, 0);
         infoAnzeige.text = "Fehler, zurück auf " + zahlMax;
         Invoke(nameof(Weiter), 2);
     }
@@ -80,8 +92,16 @@ public class Training : MonoBehaviour
         ButtonsVerteilen();
     }
 
+    public void Vorwaerts()
+    {
+        zahlMax++;
+        infoAnzeige.GetComponent<RectTransform>().transform.Translate(0, -500, 0);
+        infoAnzeige.text = "Geschafft, vorwaerts auf " + zahlMax;
+        Invoke(nameof(Weiter), 2);
+    }
+
     void Update()
     {
-        
+
     }
 }
