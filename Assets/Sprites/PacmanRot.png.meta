@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      PacmanRot_0: -1308224813523542227
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
