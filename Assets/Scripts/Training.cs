@@ -66,6 +66,20 @@ public class Training : MonoBehaviour
         infoAnzeige.GetComponent<RectTransform>().transform.Translate(0, 500, 0);
     }
 
+    public void Zurueck()
+    {
+        zahlMax--;
+        infoAnzeige.GetComponent<RectTransform>().transform.Translate(0,-500, 0);
+        infoAnzeige.text = "Fehler, zurück auf " + zahlMax;
+        Invoke(nameof(Weiter), 2);
+    }
+
+    void Weiter()
+    {
+        infoAnzeige.text = "Position merken";
+        ButtonsVerteilen();
+    }
+
     void Update()
     {
         

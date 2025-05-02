@@ -5,6 +5,7 @@ using System;
 public class Zahlen : MonoBehaviour
 {
     static int erwartet = 0;
+    public Training training;
 
     public void Button_Click()
     {
@@ -18,6 +19,8 @@ public class Zahlen : MonoBehaviour
         else
         {
             GetComponentInChildren<TextMeshProUGUI>().text = "X";
+            erwartet = 0;
+            training.Zurueck();
         }
     }
 
