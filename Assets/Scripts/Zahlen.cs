@@ -9,6 +9,11 @@ public class Zahlen : MonoBehaviour
 
     public void Button_Click()
     {
+        if (!training.buttonsKlickbar)
+        {
+            return;
+        }
+        
         int geklickt = Convert.ToInt32(name.Substring(4, 1));
 
         if (geklickt == erwartet)

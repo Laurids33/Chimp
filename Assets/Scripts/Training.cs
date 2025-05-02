@@ -8,12 +8,15 @@ public class Training : MonoBehaviour
 
     public TextMeshProUGUI infoAnzeige;
 
+    readonly int zahlMaxGrenze = 9;
+    public bool buttonsKlickbar = false;
+
     void Start()
     {
         zahlMax = 2;
         for (int i = 0; i <= 9; i++)
             Zahl[i].SetActive(false);
-        ButtonsVerteilen();
+        Invoke(nameof(ButtonsVerteilen), 3);
     }
 
     void ButtonsVerteilen()
@@ -29,7 +32,7 @@ public class Training : MonoBehaviour
                 (Random.Range(1, 15) * 50 - 400) * 2,
                 (Random.Range(1, 8) * 50 - 10 - 200) * 2,
                 0) * 0.01f;
-            
+
                 positionDoppelt = false;
 
                 for (int k = 0; k < i; k++)
@@ -56,7 +59,7 @@ public class Training : MonoBehaviour
             {
                 Zahl[i].SetActive(false);
             }
-                
+
 
         }
 
@@ -71,6 +74,7 @@ public class Training : MonoBehaviour
         }
         infoAnzeige.text = "Nacheinander anklicken";
         Invoke(nameof(InfoEntfernen), 1);
+        buttonsKlickbar = true;
     }
 
     void InfoEntfernen()
@@ -95,9 +99,19 @@ public class Training : MonoBehaviour
     public void Vorwaerts()
     {
         zahlMax++;
+        buttonsKlickbar = false;
         infoAnzeige.GetComponent<RectTransform>().transform.Translate(0, -500, 0);
-        infoAnzeige.text = "Geschafft, vorwaerts auf " + zahlMax;
-        Invoke(nameof(Weiter), 2);
+
+        if (zahlMax > zahlMaxGrenze)
+        {
+            infoAnzeige.text = "Mehr geht zurzeit nicht";
+        }
+        else
+        {
+            infoAnzeige.text = "Geschafft, vorwaerts auf " + zahlMax;
+            Invoke(nameof(Weiter), 2);
+        }
+
     }
 
     void Update()
